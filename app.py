@@ -13,4 +13,5 @@ def page_home():
 
 
 if __name__ == "__main__":
-    APP.run(host="0.0.0.0", port=5000, debug=True)
+    PORT = int(sys.argv[1])
+    APP.run(host="0.0.0.0", port=PORT, debug=True)
