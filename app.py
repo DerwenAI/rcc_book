@@ -12,12 +12,6 @@ def page_images (path):
     return send_from_directory(APP.template_folder, safe_join("_images", path))
 
 
-@APP.route("/searchindex.js")
-def page_static ():
-    print(request.path[1:])
-    return send_from_directory(APP.static_folder, request.path[1:])
-
-
 @APP.route("/")
 @APP.route("/index.html")
 def page_home():

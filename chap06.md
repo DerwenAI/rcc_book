@@ -1,4 +1,4 @@
-# Chapter 6: Allen AI
+# Chapter 6: Allen Institute for Artificial Intelligence (AI2)
 
 ## Introduction
 
@@ -17,6 +17,7 @@ writing, Semantic Scholar comprehensively covers the computer science
 and biomedical literature, but we plan to expand our coverage in 2019 to
 other scientific areas, including social sciences.
 
+
 In the following sections, we describe our approach to the three tasks
 of the RCC competition: extracting datasets used in publications
 (Section [2](#sec:datasets){reference-type="ref"
@@ -24,6 +25,7 @@ reference="sec:datasets"}), research area prediction (Section
 [3](#sec:areas){reference-type="ref" reference="sec:areas"}) and
 research method extraction (Section
 [4](#sec:methods){reference-type="ref" reference="sec:methods"}).
+
 
 ## Dataset Extraction and Linking
 
@@ -84,6 +86,7 @@ set annotations as candidates. We then use a binary classifier to
 predict which of these candidates is a correct dataset extraction.
 
 Next, we describe each of the sub-components in more detail.
+
 
 #### Mention and Candidate Generation
 
@@ -154,6 +157,7 @@ same split as $\mathbf{d_1}$. For any further conflicts, we prefer to
 put papers in the development split over the train split, and the test
 split over the development split.
 
+
 We also experimented with adding ELMo embeddings [@Peters2018DEEPCW],
 but it significantly slowed down training and decoding which would have
 disqualified our submission due to the runtime requirements of the
@@ -168,7 +172,7 @@ our final model.
   : NER precision, recall and F1 performance (%) on the development and
   test sets.
 
-[\[tab:ner\_results\]]{#tab:ner_results label="tab:ner_results"}
+*Table: ner_precision*
 
                      prec.   recall    F1
   ----------------- ------- -------- ------
@@ -180,37 +184,34 @@ our final model.
   phase 1 holdout results are for citation prediction, while the phase 2
   holdout results are for mention prediction.
 
-[\[tab:test\_results\]]{#tab:test_results label="tab:test_results"}
 
-We report the end-to-end performance of our approach (on the development
-set provided by the organizers in the first phase) in Table
-[\[tab:e2e\_results\]](#tab:e2e_results){reference-type="ref"
-reference="tab:e2e_results"}. This is the performance after using the
-linking classifier to predict which candidate mention, dataset pairs are
-correct extractions. We note that the development set provided in phase
-1 ended up having significantly more overlap with the training data than
-the actual test set did. As a result, the numbers reported in Table
-[\[tab:e2e\_results\]](#tab:e2e_results){reference-type="ref"
-reference="tab:e2e_results"} are not indicative of test set performance.
-End to end performance from our phase 2 submission can be seen in Table
-[\[tab:test\_results\]](#tab:test_results){reference-type="ref"
-reference="tab:test_results"}. This performance is reflective of our
-focus on the linking component of this task. Aside from the competition
-development set, we also used a random portion of the training set as an
+We report the end-to-end performance of our approach (on the
+development set provided by the organizers in the first phase) in
+Table *e2e_results* This is the performance after using the linking
+classifier to predict which candidate mention, dataset pairs are
+correct extractions. We note that the development set provided in
+phase 1 ended up having significantly more overlap with the training
+data than the actual test set did. As a result, the numbers reported
+in Table *e2e_results* are not indicative of test set performance.
+End to end performance from our phase 2 submission can be seen in
+Table *e2e_results* This performance is reflective of our focus on the
+linking component of this task. Aside from the competition development
+set, we also used a random portion of the training set as an
 additional development set. The initial model only uses a dataset
-frequency feature, which gives a baseline performance of 38.4 F1. Adding
-p(d $\mid$ m) and p(m $\mid$ d), which are the probability of entity
-given mention and probability of mention given entity improves the
-performance ($\Delta = 2.3$ F1). Year matching helps disambiguate
-between different datasets in the same series, which was found to be a
-major source of errors in earlier models ($\Delta = 2.8$ F1).
-Aggregating mentions for a given dataset, adding mention and sentence
-length features, adding an is acronym feature, and further
-hyper-parameter tuning improve the results ($\Delta = 12.5$ F1). Adding
-examples in the development set while training the model results in
-further improvements ($\Delta = 2.8$ F1). Finally, adding the NER-based
-mentions significantly improves recall at the cost of lower precision,
-with a positive net effect on F1 score ($\Delta = 0.7$ F1).
+frequency feature, which gives a baseline performance of 38.4
+F1. Adding p(d $\mid$ m) and p(m $\mid$ d), which are the probability
+of entity given mention and probability of mention given entity
+improves the performance ($\Delta = 2.3$ F1). Year matching helps
+disambiguate between different datasets in the same series, which was
+found to be a major source of errors in earlier models ($\Delta = 2.8$
+F1).  Aggregating mentions for a given dataset, adding mention and
+sentence length features, adding an is acronym feature, and further
+hyper-parameter tuning improve the results ($\Delta = 12.5$
+F1). Adding examples in the development set while training the model
+results in further improvements ($\Delta = 2.8$ F1). Finally, adding
+the NER-based mentions significantly improves recall at the cost of
+lower precision, with a positive net effect on F1 score ($\Delta =
+0.7$ F1).
 
                                      prec.   recall    F1
   --------------------------------- ------- -------- ------
@@ -226,7 +227,10 @@ with a positive net effect on F1 score ($\Delta = 0.7$ F1).
   prediction on the development set provided in phase 1 of the
   competition.
 
-[\[tab:e2e\_results\]]{#tab:e2e_results label="tab:e2e_results"}
+*Table: e2e_results*
+
+
+
 
 ### Research Area Prediction
 
@@ -326,6 +330,7 @@ exploration of using open information extraction is a potential avenue
 of future research. Additionally, it would be helpful to clarify what
 exactly is meant by a method, as it is currently unclear what a
 successful method extraction looks like.
+
 
 ## Acknowledgments
 
