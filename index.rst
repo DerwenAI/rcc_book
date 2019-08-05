@@ -6,6 +6,10 @@
 **Rich Search and Discovery for Research Datasets:**  
 *Building the next generation of scholarly infrastructure*
 
+Julia Lane, Ian Mulvany, Paco Nathan (eds.)
+
+Copyright 2019 NYU.
+
 =================================
 
 .. toctree::
