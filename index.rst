@@ -25,11 +25,3 @@
    chap11.md
    chap12.md
    chap13.md
-
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
