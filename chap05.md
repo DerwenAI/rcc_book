@@ -1,6 +1,10 @@
-# Chapter 5: Competition Design
 
-Andrew Gordon, Ekaterina Levitskaya, Jonathan Morgan, Paco Nathan, Sophie Rand -- New York University
+---
+
+# Chapter 5 - Competition Design
+
+**Andrew Gordon, Ekaterina Levitskaya, Jonathan Morgan, Paco Nathan and
+Sophie Rand - New York University**
 
 We hosted a competition to address the problem of automating information
 extraction from publications. The goal of the competition was to develop
@@ -13,8 +17,10 @@ metrics to describe data use. This is an open-source project, and we
 sought to generate models that could be continuously improved upon
 through engagement with the research community.
 
+This paper describes how the competition was designed and discusses the
+lessons learned.
 
-## Competition Design
+Competition Design
 
 The design approach followed the successful approach developed in the
 Natural Language Processing (NLP) domain, which developed a series of
@@ -25,6 +31,8 @@ allowed to train and then submit a number of runs of their models
 against a subset of evaluation data[^1]. We were also inspired by the
 design of the 2015 PatentsView Inventor Disambiguation Technical
 Workshop[^2].
+
+Competition Design in Phases
 
 The competition had two phases. In each of the two phases, competing
 teams were given text and metadata for 5,000 publications and single set
@@ -54,7 +62,8 @@ docker container. Then these containers were run on AWS by the
 competition organizers, evaluating the holdout data to generate
 predictions that were used to evaluate the teams.
 
-### Phase 1
+Phase 1
+-------
 
 In the first phase, each publication was labeled to indicate which of
 the datasets from the master list were referenced within and what
@@ -110,8 +119,8 @@ phase, the teams from: Allen Institute for Artificial Intelligence,
 United States; GESIS at the University of Mannheim, Germany; Paderborn
 University, Germany; and KAIST in South Korea.
 
-
-### Phase 2
+Phase 2
+-------
 
 In the second phase, finalists were provided with a new training corpus
 of 5000 unlabeled publications and asked to discover which of the
@@ -140,9 +149,10 @@ the phase 2 corpus to give half to participants and keep half back for
 evaluation, maintaining equal distribution between the topic areas
 within each set of 5,000 publications.
 
-## Operational Issues
+Operational Issues
 
-### Converting PDF files
+Converting PDF files
+--------------------
 
 Plain text provided for each publication was derived from that
 publication's PDF file by the competition organizers. It was not
@@ -157,7 +167,8 @@ process if this text did not meet their needs, and if so we asked them
 to supply documentation so we could build a set of PDF processing
 strategies to reuse in the future.
 
-### Data Sets
+Data Sets
+---------
 
 Competitors were provided with two sets of data related to detecting
 data sets: 1) a catalog of all of the data sets of interest that models
@@ -231,16 +242,20 @@ then coding for one year within a paper was used for all other years
 cited in that paper.
 
 The general process was as follows:
+
 each user was assigned a list of citations to code.
+
 Once the user logged in to the coding tool, they were presented with a
 list of the coding tasks assigned to them that included a status of
 each, so they could track which they had already completed, and a link
 for each to the coding page.
+
 Once the user loads a particular citation for coding, they are presented
 with the following coding page, and are asked to follow the coding
 instructions in the codebook/documentation for the annotation tool[^4]
 
-![image2.png](combined_images/chap05_figure1.png)
+![image2.png](combined_images/chap05_figure1.png){width="6.5in"
+height="3.486111111111111in"}
 
 *Figure 1. Interface showing a publication and its related mention
 capturing.*
@@ -268,7 +283,8 @@ time considerations and because some of the off-the-shelf text
 annotators and Qualitative Analysis tools such as lighttag.io,
 tag.works, NVivo, Atlas.ti, MAXQDA did not handle distributed workflows.
 
-### Methods and Fields
+Methods and Fields
+------------------
 
 For the task of detecting methods and fields for a given publication,
 our goals were broader than simply providing a vocabulary for each and
@@ -307,7 +323,8 @@ mean. Once we have these taxonomies, we'll focus separately on building
 models to classify publications to them, and making models to extend and
 update them.
 
-### Developing a submission process
+Developing a submission process
+-------------------------------
 
 The submission process was designed to make it as straightforward and
 easy as possible for a team to package their model for submission,
@@ -335,7 +352,8 @@ submissions in phases 1 and 2. All groups were able to work within the
 "code.sh" and "project.py" files in "project" to get their model to run,
 so no further customizations were needed.
 
-### Running a Submitted Model
+Running a Submitted Model
+-------------------------
 
 Once a model was submitted, the competition organizers followed a
 standard script for running the model and processing its output for
@@ -348,14 +366,15 @@ them an idea of whether their problem was related to needing more
 compute power, or was a limitation of their approach independent of
 available resources.
 
-## Evaluation
+Evaluation
 
 In both phases of the competition, we evaluated raw mentions, research
 fields, and research methods separate from citation of named data sets.
 
-### Phase 1 Evaluation
+Phase 1 Evaluation
+------------------
 
-#### Mentions, Methods and Fields
+### Mentions, Methods and Fields
 
 In phase 1, expert social science judges evaluated mentions, methods,
 and fields in two ways: 1) we randomly selected 10 publications to
@@ -368,7 +387,7 @@ distributions compared. To create overall rankings, the judges met,
 compared notes and individual rankings, and then agreed on an overall
 ranking of the teams.
 
-#### Data Set Citations
+### Data Set Citations
 
 To evaluate data set citations in phase 1, we used the ICPSR citation
 data as our evaluation baseline for creating a confusion matrix based on
@@ -402,9 +421,10 @@ the years wrong, and models that correctly found ICPSR data sets used in
 discussion had those counted as false positives because ICPSR had only
 captured data sets used in analysis.
 
-### Phase 2 Evaluation
+Phase 2 Evaluation
+------------------
 
-#### Mentions, Methods and Fields
+### Mentions, Methods and Fields
 
 In evaluating phase 2, we kept the division between mentions, fields,
 and methods and citations, but we refined our evaluation methods based
@@ -441,7 +461,7 @@ output for a given publication from among "--1", "0", and "1". Once
 judges scored all output, we then created rankings based on the sum of
 each team's scores.
 
-![image1.png](combined_images/chap05_figure2.png)
+![image1.png](combined_images/chap05_figure2.png){width="6.5in" height="5.0in"}
 
 For manual evaluation of data set mentions, we used the same tool
 described above, but we chose a different sample of 60 publications
@@ -451,7 +471,7 @@ separate pair of qualitative judges to use the tool to compare and
 evaluate the data set mentions generated by the teams across these
 publications.
 
-#### Data Set Citations
+### Data Set Citations
 
 Our analysis of data set citations in phase 2 required a more
 substantial rethinking since we did not have any starting point for
@@ -516,7 +536,8 @@ from our final analysis. Finally, the protocol designer reviewed all
 removed data references, corrections, and ambiguities flagged for
 additional review, and made a final set of corrections.
 
-### Scoring the Results
+Scoring the Results
+-------------------
 
 To create a "related to" confusion matrix for each team, we started with
 a list of all of the data references that our final reviewers indicated
@@ -531,8 +552,7 @@ that publication.
 We did not develop a way to capture true negatives since the metrics we
 used to evaluate did not require it.
 
-
-## Lessons learned
+Lessons learned
 
 The docker-based model submission process worked well for competition,
 but subsequent use of the models by Digital Science and Bundesbank has
@@ -599,19 +619,24 @@ amount of the data annotation. Jonathan and Andrew worked together to
 collect and run submissions for the competition and summarize the output
 for the judges.*
 
-## References
-
 [^1]: Soboroff, I. M., Ounis, I., Lin, J., & Macdonald, C. (2013).
     Overview of the TREC--2012 Microblog Track. NIST Special Publication
     500--298: The Twenty-First Text REtrieval Conference Proceedings
-    (TREC 2012), 2012, 20. Retrieved from <https://www.nist.gov/publications/overview-trec--2012-microblog-track>
+    (TREC 2012), 2012, 20. Retrieved from
+    [[https://www.nist.gov/publications/overview-trec--2012-microblog-track]{.underline}](https://www.nist.gov/publications/overview-trec%E2%80%932012-microblog-track)
 
-[^2]: See <http://www.patentsview.org/community/workshop-2015>
+[^2]: See
+    [[http://www.patentsview.org/community/workshop-2015]{.underline}](http://www.patentsview.org/community/workshop-2015)
 
-[^3]: For details about the metadata provided for each type of data, see <https://github.com/Coleridge-Initiative/rich-context-competition/wiki/Dataset-Description>
+[^3]: For details about the metadata provided for each type of data, see
+    [[https://github.com/Coleridge-Initiative/rich-context-competition/wiki/Dataset-Description]{.underline}](https://github.com/Coleridge-Initiative/rich-context-competition/wiki/Dataset-Description)
 
-[^4]: For more details, including an FAQ that provides guidance on specific issues that arose during coding, e.g., how to handle data sets that span multiple years, see the content analysis protocol <https://docs.google.com/document/d/1xuZL\_-z1re6TO3Sv8\_9tdFk7z6ovyqTwDVgc1bYO3Ag/edit?usp=sharing>
+[^4]: For more details, including an FAQ that provides guidance on
+    specific issues that arose during coding, e.g., how to handle data
+    sets that span multiple years, see the content analysis protocol
+    [[https://docs.google.com/document/d/1xuZL\_-z1re6TO3Sv8\_9tdFk7z6ovyqTwDVgc1bYO3Ag/edit?usp=sharing]{.underline}](https://docs.google.com/document/d/1xuZL_-z1re6TO3Sv8_9tdFk7z6ovyqTwDVgc1bYO3Ag/edit?usp=sharing)
 
-[^5]: <https://github.com/Coleridge-Initiative/rich-context-competition>
+[^5]: [[https://github.com/Coleridge-Initiative/rich-context-competition]{.underline}](https://github.com/Coleridge-Initiative/rich-context-competition)
 
-[^6]: The protocol is described in <https://docs.google.com/document/d/1Hi13N6gfiRz9nfwCoUQrey8v\_ozY7fKHMtHV4GgX2ys/edit>
+[^6]: The protocol is described in
+    [[https://docs.google.com/document/d/1Hi13N6gfiRz9nfwCoUQrey8v\_ozY7fKHMtHV4GgX2ys/edit]{.underline}](https://docs.google.com/document/d/1Hi13N6gfiRz9nfwCoUQrey8v_ozY7fKHMtHV4GgX2ys/edit)

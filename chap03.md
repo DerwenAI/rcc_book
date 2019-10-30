@@ -1,4 +1,4 @@
-# Chapter 3: Enriching context and enhancing engagement around datasets
+# Chapter 3 - Digital Science Use Cases: Enriching context and enhancing engagement around datasets
 
 Christian Herzog^1,a^, Daniel W Hook^1,2,3,b^, Mark Hahnel^1,c^, Stacy
 Konkiel^1,d^, and Duane E. Williams^1,e^
@@ -17,8 +17,8 @@ Missouri, USA
 ^d^[<https://orcid.org/0000-0002-0546-8257>]{.underline}
 ^e^[[https://orcid.org/0000-0002-2111-3413]{.underline}](https://orcid.org/0000-0002-2111-3413))
 
-
-## Introduction
+Introduction
+------------
 
 The relationship between research, researchers and data is changing.
 Data has always played a critical role in scientific research, but in
@@ -67,8 +67,8 @@ the incentives, triggers and frameworks that encourage the dataset
 stewards, experts and users to contribute to these critical information
 elements.
 
-
-## Information Infrastructure
+Information Infrastructure
+--------------------------
 
 It is important to understand that any successful information
 infrastructure for research data will necessarily be deeply linked with
@@ -166,8 +166,8 @@ interpretation, and availability of data. These challenges are
 interconnected with challenges we face when thinking about the cultural
 infrastructure for data, as well.
 
-
-## Cultural Infrastructure
+Cultural Infrastructure
+-----------------------
 
 There are two main aspects to cultural infrastructure: incentives and
 capability. Both of these aspects are strong drivers in how researchers
@@ -245,8 +245,8 @@ fully contextualised is often significant. However, governments and
 foundations have not necessarily prioritised these activities in their
 grant programs (though this is changing)[^6]^,^[^7].
 
-
-## Enriching context
+Enriching context
+-----------------
 
 While we at Digital Science cannot solve all the issues raised here, the
 points discussed do offer a blueprint for a generalised approach to
@@ -308,7 +308,8 @@ many other kinds of public and non-traditional scholarly engagement.
 These data can then be visualized in creative ways to add instant
 additional context to engagement with a research article (see Fig. 1).
 
-![](combined_images/chap03_image1.png)
+![](combined_images/chap03_image1.png){width="7.270833333333333in"
+height="2.5277777777777777in"}
 
 *Figure 1: Different types of context tracked by Altmetric.com for any
 research output.  
@@ -350,12 +351,14 @@ mining ever more open research systems wherein data is being analyzed
 (e.g. Gigantum, Github, etc), we can start to integrate these other
 crucial engagement contexts as well.
 
-![https://lh5.googleusercontent.com/3OunhdD8OksXbG5n9dlxQZ4vHfq3ytZuYahLuNwnXG2oaJ7vSpCkCULgc\_8tpapwUqzFLsALR6Xcrhl2ZgyYtvxOhg2kfoXeAJ1MoibnK0liPl2w6xhvoMye-lGtyopkM0ja1xnB](combined_images/chap03_image2.png)
+![https://lh5.googleusercontent.com/3OunhdD8OksXbG5n9dlxQZ4vHfq3ytZuYahLuNwnXG2oaJ7vSpCkCULgc\_8tpapwUqzFLsALR6Xcrhl2ZgyYtvxOhg2kfoXeAJ1MoibnK0liPl2w6xhvoMye-lGtyopkM0ja1xnB](combined_images/chap03_image2.png){width="4.543310367454068in"
+height="4.776042213473316in"}
 
 *Figure 2: Mock-up of a research data badge helping to contextualise a
 set of search results.*
 
-![https://lh5.googleusercontent.com/51fefhu7zEe3Y61OD1vbe-Bl9EiBI8IUUj1FOnP7NLLexSqDO7cJrzBeuzmwUR7eC84AQKmcMwDcTKW3trd7-vnNiyelvHvEOdM\_Da5OgEoTYh5lvrz8wfxWzTH2\_5DJjfgwe9Ed](combined_images/chap03_image3.png)
+![https://lh5.googleusercontent.com/51fefhu7zEe3Y61OD1vbe-Bl9EiBI8IUUj1FOnP7NLLexSqDO7cJrzBeuzmwUR7eC84AQKmcMwDcTKW3trd7-vnNiyelvHvEOdM\_Da5OgEoTYh5lvrz8wfxWzTH2\_5DJjfgwe9Ed](combined_images/chap03_image3.png){width="4.163163823272091in"
+height="4.505208880139983in"}
 
 *Figure 3: Mock-up of a research data badge helping to contextualise a
 specific dataset.*

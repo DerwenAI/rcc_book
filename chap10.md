@@ -1,12 +1,46 @@
-# Chapter 10: Singapore
+# Chapter 10 - Finding datasets in publications: The Singapore Management University approach
 
-*Simple Extraction for Social Science Publications*
+## Simple Extraction for Social Science Publications
+
+<!--
+---
+author:
+- |
+    Philips Kokoh Prasetyo, Amila Silva, Ee-Peng Lim, Palakorn Achananuparp  
+    Living Analytics Research Centre  
+    Singapore Management University  
+    [{pprasetyo,amilasilva,eplim,palakorna}@smu.edu.sg]{}
+bibliography:
+- 'rcc-02.bib'
+title: Simple Extraction for Social Science Publications
+---
+-->
 
 Philips Kokoh Prasetyo, Amila Silva, Ee-Peng Lim, Palakorn Achananuparp  
 Living Analytics Research Centre, Singapore Management University  
 {pprasetyo,amilasilva,eplim,palakorna}@smu.edu.sg
 
-## Introduction
+First draft: 11 February 2019; Second draft: 12 June 2019
+
+
+### Abstract
+
+With the vast number of datasets and literature collections available for research today, it is very difficult to keep track on the use of datasets and literature articles for scientific research and discovery. Many datasets and research work using them are left undiscovered and under-utilized due to the lack of available search tools to automatically find out who worked with the data, on what research topics, using what research methods and generating what results. The Coleridge Rich Context Competition (RCC) therefore aims to build automated dataset discovery tools for analyzing and searching social science research publications. In this chapter, we describe our approach to solving the first phase of Coleridge Rich Context Competition.
+
+### Table of contents
+
+1. [Introduction](#1-introduction)
+2. [Related Work](#2-related-work)
+3. [Data Analysis](#3-data-analysis)
+4. [Methods](#4-methods)
+5. [Experiment Results](#5-experiment-results)
+6. [Lesson Learned](#6-conclusion)
+7. [Acknowledgement](#7-acknowledgements)
+8. [Appendix: Technical Documentation](#appendix-technical-documentation)
+
+
+### 1. Introduction
+
 
 Automated discovery from scientific research publications is an important task for analysts, researchers, and learners as they develop the scientific knowledge and use them to gain new insights. More specifically, on the tasks of discovering datasets and methods mentioned in a research publication, we have seen a lack of available tools to easily find who else worked on a particular dataset, what research methods people apply on the dataset, and what results they have found using the dataset. Furthermore, new datasets are not easy to discover, and as a result, good datasets and methods are often neglected.
 
@@ -22,7 +56,7 @@ results in section \[sec:experiments\]. Finally, we wrap up with
 conclusion and future work in section \[sec:conclusion\].
  -->
 
-## Related Work
+### 2. Related Work
 
 Extracting information from scientific text has been explored in the past [[PM04](#PM04); [NCKL15](#NCKL15); [SBP<sup>+</sup>16](#SBP+16)]. One type of information extraction from scientific articles is extracting keyphrases and relation between them [[ADR<sup>+</sup>17](#ADR+17)]. Luan et al. (2017) propose semi-supervised sequence tagging approach to extract keyphrases [[LOH17](#LOH17)]. Augenstein and Søgaard (2017) explore multi-task deep recurrent neural network approach with several auxiliary tasks to extract keyphrases [[AS17](#AS17)].
 
@@ -31,7 +65,7 @@ Another type of extraction is citation extraction. Two citation extraction setti
 Recently, there are some work to explore dataset extraction from
 scientific text [[BREM12](#BREM12); [GML<sup>+</sup>16](#GML+16); [GMVL16](#GMVL16)]. Boland et al. (2012) propose weakly supervised pattern induction to identify references in social science publications [[BREM12](#BREM12)]. Ghavimi et al. (2016) propose a semi automatic approach for detecting dataset references for social science texts [[GML<sup>+</sup>16](#GML+16); [GMVL16](#GMVL16)]. Dataset extraction is a challenging task because of the inconsistency and wide range of dataset mention styles in research publications [[GMVL16](#GMVL16)].
 
-## Data Analysis
+### 3. Data Analysis
 
 The first phase of RCC dataset consists of a labeled corpus of 5,000 publications for training set, and additional 100 publications for development set. The RCC organizer keeps a separate corpus of 5,000 publications for evaluation. Each article in the dataset contains full text article and dataset citation labels. The metadata of cited datasets in the corpus are also provided. For research methods and fields, no label information is provided, only SAGE social science research method graph and research fields vocabulary are provided.
 
@@ -90,11 +124,11 @@ Network density | 0.008%
 Initially, we propose an approach utilizing citation network based on an intuition that datasets, research methods, and research fields are shared by: 1) same or similar issues, 2) same or similar context, 3) same or similar authors and communities, 4) same or similar metrics used in the publication. However, based on table [3](#user-content-tab_network_stats), we learn that exploring rich context using paper-paper citation network is not viable at this stage because most papers listed in publications’ bibliography are not available in the training set, and therefore, paper-paper citation network becomes very sparse with many unknown information. Due to this reason, we drop our idea on utilizing paper-paper citation graph at this stage. Nevertheless, we believe that bibliography contains important signals and information about datasets, and research fields.
 
 
-## Methods
+### 4. Methods
 
 In this section, we describe our approach for RCC tasks: dataset extraction, research methods identification, and research fields identification.
 
-### Dataset Extraction
+#### Dataset Extraction
 
 We employ a pipeline of two subtasks for dataset extraction: dataset detection, followed by dataset recognition. The goal of dataset detection is to detect whether a publication cites a dataset or not. This first subtask helps us to quickly filter out non-dataset publications. After the first subtask, we mine dataset mentions for the remaining publications in dataset recognition subtask.
 
@@ -122,7 +156,7 @@ where <img src="https://latex.codecogs.com/svg.latex?E" title="E" /> is the numb
 
 Then for a given unseen publication, we use same rule based approach [[GMVL16](#GMVL16)] to filter a few relevant sentences, and datasets are ranked by <img src="https://latex.codecogs.com/svg.latex?ln(p(d|w))" title="ln(p(d|w))" /> to select the most suitable datasets. In order to select exact datasets related to particular publication, we select top 10 datasets ranked using above approach. And then the confidence probability related to the top 10 datasets are normalized and select the datasets with the normalized probability higher than a predefined threshold value. We return the entity indicative words as relevant dataset mentions.
 
-### Research Methods Identification
+#### Research Methods Identification
 
 Since we do not have labeled training data for this task, we use explicit research method mentions (based on exact match with SAGE research methods vocabulary) in a publication as weak signals on research methods used in the publication. When these mentions frequently appear in a publication, there is a high chance that this publication is using these particular research methods.
 
@@ -132,7 +166,7 @@ We use the training data to train logistic regression classifier to classify res
 
 This approach can be extended by utilizing research method graph to expand the context. Context information does not only comes from sentences in publication, but also comes from related research methods as well as broader concept information. By using this information, we can potentially expand to more than 133 research methods and perform more accurate prediction.
 
-### Research Fields Identification
+#### Research Fields Identification
 
 Similar to research methods identification, this task does not have labeled training data. We only have access to list of SAGE research fields. SAGE research fields are organized hierarchically into three levels, namely L1, L2, and L3, for example: Soc-2-4 (*kinship*) is under Soc (*sociology*) in L1, and under Soc-2 (*anthropology*) in L2.
 
@@ -174,7 +208,8 @@ We build three SVM classifiers for L1, L2, and L3 to classify a publication usin
 To expand to more context from paper list in bibliography section, we also build other three Naive Bayes classifiers for L1, L2, and L3 using paper title feature only. We believe that a publication from a certain field also cites other publications from same or similar fields. For each publication in the bibliography, we apply the same procedure as mentioned above, then we average the score to get top research fields from bibliography. Finally, we combine top research fields from paper titles and abstract with results from bibliography.
 
 
-## Experiment Results
+### 5. Experiment Results
+
 
 We discuss our experiment results for each task in this section. We use standard precision, recall, and F1 as evaluation metrics.
 
@@ -230,7 +265,7 @@ Naive Bayes | 0.80 | 0.35 | 0.12
 SVM | 0.81 | 0.35 | 0.11
 
 
-## Lesson Learned
+### 6. Lesson Learned
 
 Extraction of research datasets, associated research methods and fields from social science publication is challenging, yet an important problem to organize social science publications. We have described our approach for the RCC challenge, and table [10](#user-content-tab_summary) summarizes our approach. Beside publication content such as paper titles, abstract, full text, our approach also leverages on the information from bibliography. Furthermore, we also collect external information from SAGE Knowledge to get more information about research fields.
 
@@ -251,13 +286,12 @@ Apart from F1 score on 5-fold cross validation, we have no good way to evaluate 
 
 Our model did not perform well in test set, and unable to advance to the second phase. From this competition, we have learned that lacks of labelled training data is a huge challenge, and it directs us to other external resources (i.e., SAGE Knowledge) as proxy for our label. We are also interested in exploring more advanced information extraction approaches on the RCC datasets. Another challenge is data sparsity. Although we see many paper listed in bibliography, lacks of access to these publication make us difficult to exploit citation network.
 
-## Acknowledgments
+### 7. Acknowledgments
 
-We thank the RCC organizers for organizing a competition and workshop
-on this important, interesting, and challenging problem.
+We thank the RCC organizers for organizing a competition and workshop on this important, interesting, and challenging problem.
 
 
-## References
+### References
 
 - [<a name="PM04">PM04</a>] Fuchun Peng and Andrew McCallum (2004): Accurate information extraction from research papers using conditional random fields. In HLT-NAACL.
 - [<a name="Het08">Het08</a>] Erik Hetzner (2008): A simple method for citation metadata extraction using hidden markov models. In JCDL.
@@ -276,7 +310,6 @@ on this important, interesting, and challenging problem.
 - [<a name="NJM18">NJM18</a>] Zara Nasar, S. W. Jaffry, and Muhammad Kamran Malik (2018): Information extraction from scientific articles: a survey. Scientometrics, 117:1931–1990.
 
 
-## Appendix: Technical Documentation
+### Appendix: Technical Documentation
 
-Source codes to run and replicate our experiments are available at
-<https://github.com/LARC-CMU-SMU/coleridge-rich-context-larc>
+Source codes to run and replicate our experiments are available at [https://github.com/LARC-CMU-SMU/coleridge-rich-context-larc](https://github.com/LARC-CMU-SMU/coleridge-rich-context-larc).

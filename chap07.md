@@ -1,5 +1,9 @@
-# Chapter 7: KAIST
 
+---
+
+# Chapter 7 - Finding datasets in publications: The KAIST approach
+
+---
 author:
 - |
     Giwon Hong  
@@ -22,7 +26,10 @@ author:
     KAIST  
     Daejeon, South Korea  
     myaeng@kaist.ac.kr  
-
+bibliography:
+- 'bibliography.bib'
+title: Rich Text Competition
+---
 
 ## Non technical overview
 
@@ -41,21 +48,22 @@ Furthermore, they also give too much weight to the publication year of the datas
 
 In this section, we will explain about the models we used for datasets retrieval, research fields retrieval, and research methods retrieval.
 
-### Datasets Retrieval
+Datasets Retrieval
+------------------
 
 Our approach to solving the dataset retrieval task is reading comprehension (RC) with query generation and entity typing. An RC model is applied to the given publications with our own query generation module. Then, the result from the RC model is filtered with an entity typing module. Figure 1 shows our overall approach for dataset retrieval. In following subsections RC model, query generation, and entity typing are explained in detail.
 
-![](combined_images/docqaarch3.png)
+![image](combined_images/docqaarch3.png)
 
 *Figure 1: Overall architecture for dataset retrieval*
 
-#### Document QA
+### Document QA
 
 Reading comprehension models are neural networks that find answers for given queries according to a text. Answers must appear explicitly in the text. Since the dataset retrieval task is about finding explicit dataset mentions from publications, RC models are suitable for this task.
 
 The RC model used in this work is Document QA [@clark2017simple]. It uses Bi-GRU, bi-attention, and self-attention mechanism. In addition, Document QA performs a paragraph selection that pre-filters and selects the *k* most relevant paragraphs through TF-IDF similarity between the query and paragraphs. We observed that datasets are usually mentioned together in some specific paragraphs of the publications. Therefore, this model is appropriate for this task thanks to its paragraph selection stage.
 
-#### Query generation module
+### Query generation module
 
 In order to apply an RC model, such as Document QA, to the dataset retrieval task, queries that are suitable for finding the datasets are required. However, defining a general query for retrieving datasets is difficult, since the dataset mentions appear in various forms like surveys, datasets, or studies. Therefore, we devised a query generation module with some important query terms to generate multiple specific queries instead of one general query.
 
@@ -63,11 +71,11 @@ To generate important query terms, we used a query generation model that creates
 
 This list of query terms is used to generate a general query concatenating query terms. This query is used for the paragraph selection stage of Document QA, as shown in Figure 1. After this stage, the query generation module generates queries for each paragraph by string matching, in order to create specific queries for each paragraph.
 
-#### Ultra-Fine Entity Typing
+### Ultra-Fine Entity Typing
 
 Ultra-Fine Entity Typing [@Choi:2018:ACL] can predict a set of free-from phrases like *criminal* or *skyscraper* given a sentence with an entity mention. For example, in the sentence: *Bob robbed John and he was arrested shortly afterward*, Bob is of type *criminal*. In our task, candidate answers proposed by Document QA and their context are input to Ultra-Fine Entity Typing. Although this system can predict 10k different entity types in which *dataset* is included, after a few experiments we observed that most of the dataset names are recognized as some specific entity types such as *organization* and *agency*. Since these entity types are consistent, we decided that this could be a feature for our candidate answer classifier.
 
-#### Candidate Answer Classifier
+### Candidate Answer Classifier
 
 Using the score given by the RC model for each candidate answer and the entity types given by Ultra-Fine Entity Typing for each candidate answer, a neural network classifier that filters the candidate answers of Document QA was used. We discovered that a candidate answer with a high score given by Document QA and whose entity type is *organization* or something similar is considerably likely to be a correct dataset name. Due to this pattern, we were able to create neural network classifier to filter out candidate answers.
 
@@ -81,23 +89,25 @@ The classifier has the following architecture:
 
 The training set consists of 25172 examples and the test set of 6293 examples. Adam optimizer was used and cross entropy was used as loss function.
 
-### Research Fields Retrieval
+Research Fields Retrieval
+-------------------------
 
 Our approach to obtaining the research fields is based on TF-IDF similarity with Wikipedia articles. First, a set of Wikipedia articles about different research fields using the library MediaWiki for Python was obtained. The list of research fields provided the Coleridge Initiative for the Rich Context Competition was used to crawl Wikipedia. This list has three levels of hierarchy as the example in Figure 2.
 
-![](combined_images/fieldshierarchy2.png)*Figure 2: Research fields hierarchy*
+![Research fields hierarchy[]{label="fig:researchfieldshiearchy"}](combined_images/fieldshierarchy2.png)*Figure 2: Research fields hierarchy*
 
 The leaf nodes of that hierarchy were searched in Wikipedia to retrieve specific research fields instead of general ones. For example, we were aiming to retrieve *Neurosurgery* instead of *Medicine*.
 
 Then, using Scikit-learn [@scikit-learn], a TF-IDF matrix of all the publications and Wikipedia articles of research fields were computed and the research field and all its superior nodes in the hierarchy associated with the most similar article were returned along with the similarity in the range \[0,1\]. The overall architecture can be seen in Figure 3.
 
-![](combined_images/researchfields2.png)*Figure 3:  Overall architecture for research fields retrieval*
+![Overall architecture for research fields retrieval[]{label="fig:researchfields"}](combined_images/researchfields2.png)*Figure 3:  Overall architecture for research fields retrieval*
 
-### Research Methods Retrieval
+Research Methods Retrieval
+--------------------------
 
 For the research methods retrieval task, we modeled it as an named-entity recognition (NER) problem. Research methods are considered to be a named entities and because of this, they can be tagged as research method label (RS) instead of common NER labels such as: *location*, *people*, etc. Figure 4 shows the main architecture of the model proposed by [@lample2016neural] and used in this task.
 
-![](combined_images/bi-lstm.png)*Figure 4: Paragraph selection for DocQA in research method retrieval*
+![BiLSTM-CRF architecture](combined_images/bi-lstm.png)*Figure 4: Paragraph selection for DocQA in research method retrieval*
 
 The representation of a word using the model is obtained considering its context. We have the assumption that research methods have dependencies and constraints with words that appear in their surrounding context. Therefore, the conditional random field [@lafferty2001conditional] layer in this model is suitable for detecting research methods by jointly tagging the whole sentence, instead of independently tagging each word.
 
@@ -120,7 +130,8 @@ Finally, our first idea to retrieve research methods was based on identifying th
 
 Due to the difficulty of performing a quantitative analysis on a not extensively labeled dataset, a qualitative analysis was made. Several random publications were chosen and manually labeled by us to check the quality of our model and discover the strong and weak points.
 
-### Datasets Retrieval
+Datasets Retrieval
+------------------
 
 To analyze the effects of the query generation module and entity typing module, we performed analyses on 100 phase 1 dev set with 3 different settings:
 
@@ -130,35 +141,37 @@ To analyze the effects of the query generation module and entity typing module, 
 
 3.  Document QA + query generation module + entity typing module
 
-#### Document QA only
+### Document QA only
 
 Figure 5 shows the results from 3 publications of phase 1 dev set with Document QA only. Compared to the other settings, Document QA only setting retrieves answers (dataset mentions) with high quality. However, the number of retrieved answers is notably small. For example, the result from *153.txt* publication was empty as in Figure 5. In fact, our model using this setting can retrieve only 260 answers (predictions) from 100 publications of phase 1 dev set.
 
-![](combined_images/phase1.png)*Figure 5: Results from Document QA only*
+![Results from Document QA only[]{label="fig:docqaonly"}](combined_images/phase1.png)*Figure 5: Results from Document QA only*
 
 These results with fewer answers were expected, due to the difficulty of defining general queries as explained in section [*Question Generation Module*](#query-generation-module). Without a query generation module, our query was not representative enough to retrieve various forms and types of the dataset mentions.
 
-#### Document QA + query generation module
+### Document QA + query generation module
 
 Figure 6 shows the results from 3 publications of phase 1 dev set with Document QA and query generation module. Because of the latter, our dataset retrieval model could retrieve a large number of answers. For example, the result from *153.txt* publication contains a large number of answers with correct answers such as *financial services FDI data* or *Micro Database Direct investment*. Therefore, we believe that the query generation module improves recall of the entire dataset retrieval model. Actually, our model using this setting can retrieve more than 2,000 answers (predictions) from 100 publications of phase 1 dev set.
 
 However, compared to the Document QA only setting, there is a considerable number of noise. For example, in Figure 6, *empirical, Table 1, Section 4* and etc., are not dataset mentions.
 
-![](combined_images/phase1+querygen.png)*Figure 6: Results from Document QA + query generation module*
+![Results from Document QA + query generation module[]{label="fig:docqaquery"}](combined_images/phase1+querygen.png)*Figure 6: Results from Document QA + query generation module*
 
 We believed that the reason of these noises is the several query terms potentially retrieve wrong answers. For example, we have a query term *\"study\"* to retrieve dataset mentions such as *\"ANES 1952 Time Series Study\"*. However, this term can also retrieve noises such as *\"empirical study\"*. These kinds of query terms are still needed to retrieve various forms and types of dataset mentions but clearly generate some noises.
 
-#### Document QA + query generation module + entity typing module
+### Document QA + query generation module + entity typing module
 
 Figure 7 shows the results from 3 publications of phase 1 dev set with Document QA, query generation module, and entity typing module. Thanks to the entity typing module, we can see that most of the noises from the query generation module have disappeared. Although a few right answers such as *\"FDI data\"* was filtered out and a few wrong answers such as *\"4.2.1 Micro Data\"* was not, overall precision is adequately improved by entity typing module. In addition, our model in this setting could retrieve 526 answers (predictions) from 100 publications of phase 1 dev set.
 
-![](combined_images/phase1+querygen+entitytyping.png)*Figure 7: Results from Document QA + query generation module + entity typing module*
+![Results from Document QA + query generation module + entity typing module[]{label="fig:docqaqueryentity"}](combined_images/phase1+querygen+entitytyping.png)*Figure 7: Results from Document QA + query generation module + entity typing module*
 
-### Research Fields Retrieval
+Research Fields Retrieval
+-------------------------
 
 We randomly selected 20 publications from the training set of phase 1, since our model does not require any training. The model was able to correctly predict 11. The strongest point is that the model is able to predict research fields which are significantly specific such as *Home health nursing management*. Among the weak points of the model, it has problems when two research fields are similar or share subtopics. Moreover, sometimes it fails due to the fact that it tries to retrieve excessively specific fields while more general ones would be suitable.
 
-### Research Methods Retrieval
+Research Methods Retrieval
+--------------------------
 
 20 random publications were selected from the training set of phase 2 and labeled and our results are not as expected. The model is able to find proper research methods for 12 publications out of 20. For example, the model detects one of the research methods appeared in publication with id 15359 which is *Factor analysis*. However, the results contain a notable amount of noise. For example, the document with id 10751, the model retrieves several wrong answers like *Reviews describe*, *Composite materials*, *Detailed databases*, etc.
 
@@ -179,8 +192,11 @@ This work is the very first step of the Coleridge Initiative to build an "Amazon
 In addition, we also need to improve the performance of the models we built. For example, since we used a pre-trained model in Document QA we think we could not exploit the whole potential of this system, so we would like to train our own model using a training set of publications.
 
 
-## Appendix: Description of your code and documentation
+## Acknowledgements
 
-The technical documentation of the code is provided in the GitHub
-repository of the project
-<https://github.com/HaritzPuerto/RCC/tree/master/project>
+This work was supported by the Institute of Information & Communications Technology Planning & Evaluation (IITP) grant funded by the Korean Government (MSIT) (No. 2013-0-00179, Development of Core Technology for Context-aware Deep-Symbolic Hybrid Learning and Construction of Language Resources) and Next-Generation Information Computing Development Program through the National Research Foundation of Korea (NRF) funded by the Ministry of Science, ICT (2017M3C4A7065962).
+
+
+## Appendix: Description of the code and documentation
+
+The technical documentation of the code is provided in the GitHub repository of the project https://github.com/HaritzPuerto/RCC/tree/master/project

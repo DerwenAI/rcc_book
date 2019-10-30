@@ -1,7 +1,28 @@
-# Chapter 9: DICE 
 
-*Combining Embeddings and Conditional Random Fields for Research Dataset, Field and Method Recognition and Linking*
+---
 
+# Chapter 9 - Finding datasets in publications: The University of Paderborn approach
+
+
+---
+abstract: |
+    The steadily increasing number of publications available to researchers
+    makes it difficult to keep track of the state of the art. In particular,
+    tracking the datasets used, topics addressed, experiments performed and
+    results achieved by peers becomes increasingly tedious. Current academic
+    search engines render a limited number of entries pertaining to this
+    information. However, having this knowledge would be beneficial for
+    researchers to become acquainted with all results and baselines relevant
+    to the problems they aim to address. With our participation in the NYU
+    Coleridge Initiative’s Rich Context Competition, we aimed to provide
+    approaches to automate the discovery of datasets, research fields and
+    methods used in publications in the domain of Social Sciences. We
+    trained an Entity Extraction model based on Conditional Random Fields
+    and combined it with the results from a Simple Dataset Mention Search to
+    detect datasets in an article. For the identification of Fields and
+    Methods, we used word embeddings. In this paper, we present how our
+    approaches performed, their limitations, some of the encountered
+    challenges and our future agenda.
 author:
 - Rricha Jalota
 - Nikit Srivastava
@@ -10,7 +31,13 @@ author:
 - Michael Röder
 - Ricardo Usbeck
 - 'Axel-Cyrille [Ngonga Ngomo]{}'
-
+bibliography:
+- 'references.bib'
+title: |
+    DICE @ Rich Context Competition 2018 – Combining Embeddings and
+    Conditional Random Fields for Research Dataset, Field and Method
+    Recognition and Linking
+---
 
 ## Literature Review
 
@@ -52,11 +79,13 @@ is not only somewhat different from the ones mentioned above, but also
 our approach for tackling it is radically disparate. The following
 sections describe our approach in detail.
 
+
 ## Project Architecture
 
-![](combined_images/flowchart_paper.pdf)
-
-*Figure: Data Flow Pipeline: Red lines depict the flow of given and generated files between components whereas black lines represent the generation of final output files*
+![Data Flow Pipeline: Red lines depict the flow of given and generated
+files between components whereas black lines represent the generation of
+final output
+files[]{data-label="fig:flowchart"}](combined_images/flowchart_paper.pdf){width="\textwidth"}
 
 Our pipeline (shown in Figure \[fig:flowchart\]) consisted of three main
 components: 1) Preprocessing, 2) Fields and Methods Identification and
@@ -68,6 +97,7 @@ Methods from the publications. Then, the information regarding fields
 was passed onto the Dataset Detection module and using the Dataset
 Vocabulary, it identified Dataset Citations and Mentions. The following
 sections provide a detailed overview of each of these components.
+
 
 ## Preprocessing
 
@@ -140,9 +170,10 @@ components of the pipeline, which have been discussed below.
 
 ## Approach
 
-### Research Fields and Methods Identification
+Research Fields and Methods Identification
+------------------------------------------
 
-#### Vocabulary Generation and Model Preperation
+### Vocabulary Generation and Model Preperation
 
 1.  **Research Methods Vocabulary**: In Phase-1 of the challenge, we
     used the given methods vocabulary. However, the feedback that we
@@ -197,7 +228,7 @@ components of the pipeline, which have been discussed below.
     noun phrase’s vectors. This file was later used to assign weights to
     research methods using Inverse Document Frequency.
 
-#### Processing with Trained Models
+### Processing with Trained Models
 
 -   **Finding Research Fields and Methods:** To find the research fields
     and methods for a given list of publications, we performed the
@@ -247,7 +278,8 @@ components of the pipeline, which have been discussed below.
         irrelevant terms, was marked as the research field of the
         article.
 
-### Dataset Extraction
+Dataset Extraction
+------------------
 
 For identifying the datasets in a publication, we followed two
 approaches and later combined results from both. Both the approaches
@@ -282,7 +314,8 @@ have been described below.
     Recall & 0.28 & 0.12 & 0.28  
     F1-score & 0.14 & **0.20** & 0.14  
 
-    ![](combined_images/freq.pdf) *Frequency Distribution of Dataset Citations*
+    ![Frequency Distribution of Dataset
+    Citations[]{data-label="fig:graph"}](combined_images/freq.pdf)
 
 2.  **Rasa-based Dataset Detection:** In our second approach, we trained
     an entity extraction model based on conditional random fields using
@@ -325,6 +358,7 @@ to keep the number of false positives low while not compromising the
 true positives. For research methods and fields, a manual evaluation
 (see the next section for details) was done to test if the results made
 sense with the articles.
+
 
 ## Evaluation
 
@@ -374,6 +408,7 @@ relationships among categories identified by reading the interview
 transcript & Qualitative interviewing & **Sampling design**  
 6053 & Autoregressive integrated moving average (ARIMA) time-series
 model & Methodological pluralism & **Multivariate statistics**  
+
 
 ## Discussion
 
@@ -476,7 +511,8 @@ fast-paced research and eliminate the need to manually update the
 domain-specific ontologies for fields, methods and other metadata as new
 research innovations come up.
 
-## References
+
+## Appendix
 
 The code and documentation for all our submissions can be found here:
 <https://github.com/dice-group/rich-context-competition>.
@@ -489,7 +525,7 @@ The code and documentation for all our submissions can be found here:
 
 [^4]: <https://github.com/allenai/science-parse>
 
-[^5]: <https://manpages.debian.org/testing/poppler-utils>
+[^5]: \[poppler\]<https://manpages.debian.org/testing/poppler-utils>
 
 [^6]: <https://github.com/explosion/spaCy>
 
@@ -497,7 +533,7 @@ The code and documentation for all our submissions can be found here:
 
 [^8]: <https://en.wikipedia.org/wiki/Category:Statistical_methods>
 
-[^9]: <https://spacy.io/api/tokenizer>
+[^9]: https://spacy.io/api/tokenizer
 
 [^10]: <https://rasa.com/docs/nlu>
 
