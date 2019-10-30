@@ -212,7 +212,6 @@ our final model.
 
 NER precision, recall and F1 performance (%) on the development and
 test sets.
-[\[tab:ner\_results\]]{#tab:ner_results label="tab:ner_results"}
 
 |                                   | prec.   | recall   |  F1  |
 | --------------------------------- | ------- | -------- | ---- |
@@ -226,7 +225,7 @@ test sets.
 End-to-end precision, recall and F1 performance (%) for citation
 prediction on the development set provided in phase 1 of the
 competition.
-[\[tab:e2e\_results\]]{#tab:e2e_results label="tab:e2e_results"}
+
 
 |                   | prec.   | recall   |  F1    |
 | ----------------- | ------- | -------- | ------ |
@@ -236,21 +235,18 @@ competition.
 End-to-end precision, recall, and F1 performance (%) for dataset
 prediction on the phase 1 and phase 2 holdout sets. Note that the
 phase 1 holdout results are for citation prediction, while the phase 2 holdout results are for mention prediction.
-[\[tab:test\_results\]]{#tab:test_results label="tab:test_results"}
 
 We report the end-to-end performance of our approach (on the development
 set provided by the organizers in the first phase) in Table
-[\[tab:e2e\_results\]](#tab:e2e_results){reference-type="ref"
-reference="tab:e2e_results"}. This is the performance after using the
+??? . This is the performance after using the
 linking classifier to predict which candidate mention--dataset pairs are
 correct extractions. We note that the development set provided in phase
 1 ended up having significantly more overlap with the training data than
 the actual test set did. As a result, the numbers reported in Table
-[\[tab:e2e\_results\]](#tab:e2e_results){reference-type="ref"
-reference="tab:e2e_results"} are not indicative of test set performance.
+???
+are not indicative of test set performance.
 End to end performance from our phase 2 submission can be seen in Table
-[\[tab:test\_results\]](#tab:test_results){reference-type="ref"
-reference="tab:test_results"}. This performance is reflective of our
+???. This performance is reflective of our
 focus on the linking component of this task. Aside from the competition
 development set, we also used a random portion of the training set as an
 additional development set. The initial model only uses a dataset

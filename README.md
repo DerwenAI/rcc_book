@@ -2,10 +2,27 @@
 
 ## Known Issues
 
-There are problems in the source for:
+There are known issues in the generated markdown source for:
 
-  * Chapter 4
-  * Chapter 11
+#### Chapter 4:
+
+#### Chapter 6:
+
+```
+[\[tab:ner\_results\]]{#tab:ner_results label="tab:ner_results"}
+
+[\[tab:e2e\_results\]]{#tab:e2e_results label="tab:e2e_results"}
+
+[\[tab:test\_results\]]{#tab:test_results label="tab:test_results"}
+
+[\[tab:e2e\_results\]](#tab:e2e_results){reference-type="ref" reference="tab:e2e_results"}
+
+[\[tab:e2e\_results\]](#tab:e2e_results){reference-type="ref" reference="tab:e2e_results"} 
+
+[\[tab:test\_results\]](#tab:test_results){reference-type="ref" reference="tab:test_results"}
+```
+
+#### Chapter 11:
 
 These must be edited by hand, to identify issues in the markdown
 source that will cause Sphinx to throw exceptions.
