@@ -1,8 +1,6 @@
-
----
-
 # Chapter 9 - Finding datasets in publications: The University of Paderborn approach
 
+## Combining Embeddings and Conditional Random Fields for Research Dataset, Field and Method Recognition and Linking
 
 ---
 abstract: |

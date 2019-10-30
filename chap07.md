@@ -1,6 +1,3 @@
-
----
-
 # Chapter 7 - Finding datasets in publications: The KAIST approach
 
 ---

@@ -1,6 +1,3 @@
-
----
-
 # Chapter 5 - Competition Design
 
 **Andrew Gordon, Ekaterina Levitskaya, Jonathan Morgan, Paco Nathan and
