@@ -4,9 +4,17 @@
 
 There are known issues in the generated markdown source for:
 
-#### Chapter 4:
+#### Chapter 4
 
-#### Chapter 6:
+Something about the use of comments causes headings to throw exceptions:
+
+```
+ {#acknowledgments .ListParagraph}
+```
+
+#### Chapter 6
+
+Must remove table references such as:
 
 ```
 [\[tab:ner\_results\]]{#tab:ner_results label="tab:ner_results"}
@@ -22,15 +30,21 @@ There are known issues in the generated markdown source for:
 [\[tab:test\_results\]](#tab:test_results){reference-type="ref" reference="tab:test_results"}
 ```
 
-#### Chapter 11:
+#### Chapter 11
 
-These must be edited by hand, to identify issues in the markdown
-source that will cause Sphinx to throw exceptions.
+Similarly to the notes above, remove comments:
+
+```
+ {#acknowledgements .unnumbered}
+```
+
+Overall, these must be edited by hand to identify issues in the
+markdown source that will cause Sphinx to throw exceptions.
 
 
 ## Installation
 
-This uses [Sphinx with
+This preview site uses [Sphinx with
 Markdown](https://docs.readthedocs.io/en/stable/intro/getting-started-with-sphinx.html),
 and the dependencies are listed in `requirements.txt` and set up using `virtualenv` via:
 

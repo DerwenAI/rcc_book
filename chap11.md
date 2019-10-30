@@ -1,10 +1,30 @@
-# Chapter 11: Syracuse
+# Chapter 11 - Finding datasets in publications: The University of Syracuse approach
 
-*Dataset mention extraction in scientific articles using a BiLSTM-CRF model*
+## Dataset mention extraction in scientific articles using a BiLSTM-CRF model
 
+---
+abstract: |
+    Datasets are critical for scientific research, playing a role in
+    replication, reproducibility, and efficiency. Researchers have recently
+    shown that datasets are becoming more important for science to function
+    properly, even serving as artifacts of study themselves. However, citing
+    datasets is not a common or standard practice in spite of recent efforts
+    by data repositories and funding agencies. This greatly affects our
+    ability to track their usage and importance. A potential solution to
+    this problem is to automatically extract dataset mentions from
+    scientific articles. In this work, we propose to achieve such extraction
+    by using a neural network based on a BiLSTM-CRF architecture. Our method
+    achieves $F_{1}=0.885$ in social science articles released as part of
+    the Rich Context Dataset. We discuss future improvements to the model
+    and applications beyond social sciences.
 author:
 - 'Tong Zeng$^{1,2}$ and Daniel Acuna$^{1}$[^1]'
-
+bibliography:
+- 'rcc-06.bib'
+title: |
+    Dataset mention extraction in scientific articles using a BiLSTM-CRF
+    model
+---
 
 ## Introduction
 
@@ -78,7 +98,8 @@ set, validation set and testing set, respectively.
 
 ## The Proposed Method
 
-### Overall view of the architecture
+Overall view of the architecture
+--------------------------------
 
 In this section, we propose a model for detecting mentions based on a
 BiLSTM-CRF architecture. At a high level, the model uses a
@@ -110,9 +131,10 @@ is in Fig \[fig:NetworkArchitecture\] and the components are as follows:
 5.  CRF layer: find the most likely sequence of labels.
 
 ![\[fig:NetworkArchitecture\]Network Architecture of BiLSTM-CRF
-network](combined_images/bilistm_crf_network_structure_pic.pdf){width="80.00000%"}
+network](combined_images/bilistm_crf_network_structure_pic){width="80.00000%"}
 
-### Character Embedding
+Character Embedding
+-------------------
 
 Similar to the bag of words assumption, we can consider a token is
 composed by a bag of characters. In this layer, we convert each token to
@@ -121,7 +143,8 @@ LSTM network to get a fixed length representation of the token. After
 learning the bidirectional LSTM network, we can solve the
 out-of-vocabulary problem for pre-trained word embeddings.
 
-### Word Embedding
+Word Embedding
+--------------
 
 The embedding is the first layer of our network and it is responsible
 for mapping the word from string into vectors of numbers as the input
@@ -134,7 +157,8 @@ embedding vector and the $V$ is the Vocabulary of the tokens. In this
 paper, the matrix $M^{tkn}$ is initialized by pre-trained GloVe vectors
 [@pennington2014glove], but will be updated by learning from our corpus.
 
-### LSTM
+LSTM
+----
 
 Recurrent neural network (RNN) is a powerful tool to capture features
 from sequential data, such as temporal series, and text. RNN could
@@ -229,7 +253,6 @@ are linked to one dataset, 15,292 (15.04%) mentions are listed to two
 datasets, and 12,624 (12.42%) are linked to three datasets. If these
 difficulties are not overcome, then the predictions from the linkage
 process will be noisy and therefore impossible to tell apart.
-
 
 ## Conclusion
 
